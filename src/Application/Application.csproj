@@ -18,7 +18,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="TodoLists\" />
-    <Folder Include="TodoItems\" />
   </ItemGroup>
 
 </Project>
