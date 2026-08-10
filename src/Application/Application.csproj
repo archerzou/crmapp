@@ -16,8 +16,5 @@
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="TodoLists\" />
-  </ItemGroup>
 
 </Project>
