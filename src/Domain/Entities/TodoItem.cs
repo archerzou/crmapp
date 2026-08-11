@@ -1,6 +1,4 @@
-﻿using CrmApp.Domain.Common;
-
-namespace CrmApp.Domain.Entities;
+﻿namespace CrmApp.Domain.Entities;
 
 public class TodoItem: BaseAuditableEntity
 {
