@@ -9,8 +9,4 @@
     <PackageReference Include="MediatR.Contracts" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Constants\" />
-  </ItemGroup>
-
 </Project>
