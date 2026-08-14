@@ -2,7 +2,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Web\Web.csproj" />
-    <ProjectReference Include="..\Shared\Shared.csproj" />
+    <!-- Shared is a class library, not a runnable Aspire resource (ASPIRE004) -->
+    <ProjectReference Include="..\Shared\Shared.csproj" IsAspireProjectResource="false" />
   </ItemGroup>
 
   <PropertyGroup>
