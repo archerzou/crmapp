@@ -491,12 +491,8 @@ $RECYCLE.BIN/
 *.db-shm
 *.db-wal
 
-# JetBrains Rider - top-level user-specific IDE state
-# (nested .idea/.idea.CrmApp/.idea/.gitignore covers the solution-scoped files)
-.idea/workspace.xml
-.idea/shelf/
-.idea/httpRequests/
-.idea/dataSources.local.xml
+# JetBrains Rider / IntelliJ - IDE settings and user-specific state
+.idea/
 
 # Claude Code - machine-specific local settings & permissions
 .claude/settings.local.json
