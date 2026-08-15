@@ -46,13 +46,7 @@ The dashboard URL is printed on startup. The database connection string is gener
 
 ### Run the Web app directly
 
-You can run the API against your own PostgreSQL instance. Set the connection string in `src/Web/appsettings.json` (or user secrets):
-
-```json
-"ConnectionStrings": {
-  "CrmAppDb": "Server=127.0.0.1;Port=5432;Database=CrmAppDb;Username=<user>;Password=<password>;"
-}
-```
+You can run the API against your own PostgreSQL instance. Set the connection string in `src/Web/appsettings.json` (or user secrets).
 
 Then:
 

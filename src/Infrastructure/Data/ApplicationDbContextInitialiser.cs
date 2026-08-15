@@ -2,7 +2,6 @@
 using CrmApp.Domain.Entities;
 using CrmApp.Domain.ValueObjects;
 using CrmApp.Infrastructure.Identity;
-using Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;

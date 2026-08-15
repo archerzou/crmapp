@@ -6,7 +6,7 @@ to fix three phases later.
 
 **Legend:** `[ ]` todo · `[x]` done · `[~]` in progress · `[!]` blocked (add a note)
 
-**Status:** _in progress — Phases 0–8 complete; Phase 9 (tests) is the next major gap_
+**Status:** _in progress — Phases 0–8 complete; Phase 9 underway (test projects scaffolded, tests being written)_
 **Started:** 2026-08 **Last updated:** 2026-08-15
 
 ---
@@ -24,16 +24,20 @@ to fix three phases later.
 | 6 | Web Layer | 14 | ✅ 14/14 | `/scalar` lists all endpoints |
 | 7 | Aspire Orchestration | 7 | ✅ 7/7 | Dashboard all-green |
 | 8 | React Client | 10 | ✅ 10/10 | `web-api-client.ts` generated |
-| 9 | Test Suite | 18 | ☐ 0/18 | `dotnet test` all pass |
+| 9 | Test Suite | 18 | ~ 6/18 | `dotnet test` all pass |
 | 10 | First Feature E2E | 9 | ☐ 0/9 | Feature works browser→DB |
 | 11 | Run & Log In | 5 | ~ 0/5 | Logged in as administrator |
 | 12 | Hardening | 8 | ☐ 0/8 | Reviewed & triaged |
-| | **Total** | **140** | **~100/140** | |
+| | **Total** | **140** | **~106/140** | |
 
 > **Audit note (2026-08-15):** State reconciled against the codebase. Phases 0–8 verified via file
 > structure, a clean `dotnet build` (0 warnings/0 errors), and the architecture rule checks below —
-> all passing. `tests/` is empty, so Phase 9 onward is not started. Phase 11 is unverified: the app
-> now builds and the AppHost is fully wired, but a full run + login hasn't been confirmed here.
+> all passing. Phase 9 kicked off: **all six test projects are scaffolded, CPM-compliant, and
+> building green**; Domain.UnitTests has real `ColourTests`, the rest carry passing placeholders.
+> The heavier harnesses (FunctionalTests 9.12–9.18, AcceptanceTests 9.19–9.22, integration coverage
+> 9.9, Application unit tests 9.4–9.7) are stubbed with TODOs and remain to be written — most are
+> Docker/Playwright-dependent. Phase 11 is unverified: the app builds and the AppHost is fully wired,
+> but a full run + login hasn't been confirmed here.
 
 ---
 
@@ -248,9 +252,9 @@ to fix three phases later.
 ## Phase 9 — Test Suite
 
 ### Domain.UnitTests
-- [ ] **9.1** Project created, references `Domain` only
-- [ ] **9.2** `ValueObjects/ColourTests.cs` — valid code, invalid code throws, equality
-- [ ] **9.3** No mocking library needed anywhere in this project
+- [x] **9.1** Project created, references `Domain` only
+- [x] **9.2** `ValueObjects/ColourTests.cs` — valid code, invalid code throws, equality
+- [x] **9.3** No mocking library needed anywhere in this project
 
 ### Application.UnitTests
 - [ ] **9.4** `Common/Mappings/MappingTests.cs` — `AssertConfigurationIsValid()`
@@ -259,12 +263,12 @@ to fix three phases later.
 - [ ] **9.7** `Common/Exceptions/ValidationExceptionTests.cs`
 
 ### Infrastructure.IntegrationTests
-- [ ] **9.8** Project created
+- [x] **9.8** Project created
 - [ ] **9.9** Interceptor + EF configuration coverage
 
 ### TestAppHost
-- [ ] **9.10** Minimal Aspire host — **database only**, no web/frontend
-- [ ] **9.11** Uses the same `Services.*` constants
+- [x] **9.10** Minimal Aspire host — **database only**, no web/frontend
+- [x] **9.11** Uses the same `Services.*` constants
 
 ### Application.FunctionalTests
 - [ ] **9.12** `FunctionalTestSetup.cs` — `[SetUpFixture]`, `DisableDashboard`, 60 s timeout

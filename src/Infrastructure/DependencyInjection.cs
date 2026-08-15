@@ -2,7 +2,6 @@
 using CrmApp.Infrastructure.Data;
 using CrmApp.Infrastructure.Data.Interceptors;
 using CrmApp.Infrastructure.Identity;
-using Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
