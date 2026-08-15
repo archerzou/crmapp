@@ -24,11 +24,11 @@ to fix three phases later.
 | 6 | Web Layer | 14 | ✅ 14/14 | `/scalar` lists all endpoints |
 | 7 | Aspire Orchestration | 7 | ✅ 7/7 | Dashboard all-green |
 | 8 | React Client | 10 | ✅ 10/10 | `web-api-client.ts` generated |
-| 9 | Test Suite | 18 | ~ 6/18 | `dotnet test` all pass |
+| 9 | Test Suite | 18 | ~ 7/18 | `dotnet test` all pass |
 | 10 | First Feature E2E | 9 | ☐ 0/9 | Feature works browser→DB |
 | 11 | Run & Log In | 5 | ~ 0/5 | Logged in as administrator |
-| 12 | Hardening | 8 | ☐ 0/8 | Reviewed & triaged |
-| | **Total** | **140** | **~106/140** | |
+| 12 | Hardening | 8 | ~ 1/8 | Reviewed & triaged |
+| | **Total** | **140** | **~108/140** | |
 
 > **Audit note (2026-08-15):** State reconciled against the codebase. Phases 0–8 verified via file
 > structure, a clean `dotnet build` (0 warnings/0 errors), and the architecture rule checks below —
@@ -283,7 +283,7 @@ to fix three phases later.
 - [ ] **9.19** `AspireSetup.cs` + `PlaywrightSetup.cs`
 - [ ] **9.20** `Features/*.feature` — Home, Login, Counter, Weather
 - [ ] **9.21** Page Objects in `Pages/`; step definitions never touch selectors directly
-- [ ] **9.22** Playwright browsers installed
+- [x] **9.22** Playwright browsers installed — `playwright.ps1 install chromium` (see README → Testing)
 
 > **🚦 GATE 9:** `dotnet test` — **all green** (Docker must be running).
 > ```powershell
@@ -339,7 +339,7 @@ Pick a real feature (the plan uses `DueDate`). Prove you can drive the full loop
 - [ ] **12.5** Seed credentials not used outside Development; Key Vault wired
 - [ ] **12.6** Rate limiting on Identity endpoints
 - [ ] **12.7** Health endpoints authenticated if exposed
-- [ ] **12.8** CI runs `dotnet build` + `dotnet test` on a Docker-enabled agent
+- [x] **12.8** CI runs `dotnet build` + `dotnet test` on a Docker-enabled agent — `.github/workflows/ci.yml`
 
 > **🚦 GATE 12:** Each item is either done or has a dated ticket. "We'll get to it" is not a state.
 

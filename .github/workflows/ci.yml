@@ -1,0 +1,72 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  # Fast feedback: pure unit / non-Docker tests. Fails a broken PR in seconds
+  # without spending Docker minutes.
+  unit-tests:
+    name: Unit tests (no Docker)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          # Honours the SDK version pinned in global.json.
+          global-json-file: global.json
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore --configuration Release
+
+      - name: Test
+        run: |
+          dotnet test tests/Domain.UnitTests --no-build --configuration Release
+          dotnet test tests/Application.UnitTests --no-build --configuration Release
+          dotnet test tests/Infrastructure.IntegrationTests --no-build --configuration Release
+
+  # Heavier suite: Aspire functional + Playwright acceptance tests. Needs Docker
+  # (ubuntu-latest ships it running). Gated on unit-tests so it only runs once the
+  # cheap checks pass.
+  integration-tests:
+    name: Functional & acceptance tests (Docker)
+    needs: unit-tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore --configuration Release
+
+      - name: Install Playwright browsers
+        # Microsoft.Playwright generates playwright.ps1 into the build output; it downloads
+        # the browser binaries the acceptance tests launch. --with-deps also installs the
+        # required OS libraries on the Linux runner.
+        shell: pwsh
+        run: |
+          $script = Get-ChildItem -Recurse -Filter playwright.ps1 -Path artifacts/bin/Web.AcceptanceTests | Select-Object -First 1
+          if (-not $script) { throw "playwright.ps1 not found — did Web.AcceptanceTests build?" }
+          & $script.FullName install --with-deps chromium
+
+      - name: Test
+        run: |
+          dotnet test tests/Application.FunctionalTests --no-build --configuration Release
+          dotnet test tests/Web.AcceptanceTests --no-build --configuration Release

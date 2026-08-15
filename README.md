@@ -1,5 +1,7 @@
 # CrmApp
 
+[![CI](https://github.com/archerzou/crmapp/actions/workflows/ci.yml/badge.svg)](https://github.com/archerzou/crmapp/actions/workflows/ci.yml)
+
 A full-stack CRM built with .NET 10, following Clean Architecture and orchestrated with .NET Aspire.
 
 ## Tech Stack
@@ -46,7 +48,7 @@ The dashboard URL is printed on startup. The database connection string is gener
 
 ### Run the Web app directly
 
-You can run the API against your own PostgreSQL instance. Set the connection string in `src/Web/appsettings.json` (or user secrets).
+You can run the API against your own PostgreSQL instance. Set the connection string in `src/Web/appsettings.json` (or user secrets). 
 
 Then:
 
@@ -63,6 +65,41 @@ dotnet build            # build the solution
 dotnet test             # run all tests
 dotnet run --project src/AppHost   # run everything via Aspire
 ```
+
+## Testing
+
+The `tests/` folder holds the test suite:
+
+| Project | Scope | Needs Docker? |
+|---|---|---|
+| `Domain.UnitTests` | Pure domain logic (value objects, entities) | No |
+| `Application.UnitTests` | Handlers, behaviours, mappings (Moq) | No |
+| `Infrastructure.IntegrationTests` | EF configuration, interceptors | No |
+| `Application.FunctionalTests` | Full request pipeline via `TestAppHost` + Respawn | **Yes** |
+| `Web.AcceptanceTests` | Browser E2E (Playwright + Reqnroll) | **Yes** |
+| `TestAppHost` | Minimal Aspire host (database only) for the tests above | — |
+
+Run everything (Docker Desktop must be running for the functional/acceptance tests):
+
+```bash
+dotnet test                                          # all tests
+dotnet test tests/Domain.UnitTests                   # a single project (no Docker needed)
+```
+
+### First-time setup for acceptance tests (Playwright)
+
+`Web.AcceptanceTests` uses Playwright, which needs browser binaries downloaded once per machine
+(they live in `%LOCALAPPDATA%\ms-playwright`, not in the repo). Without this you'll get
+`Executable doesn't exist … chrome-headless-shell.exe` at `OneTimeSetUp`.
+
+Build the project first (so the install script is generated), then run it:
+
+```powershell
+dotnet build tests/Web.AcceptanceTests
+& "artifacts/bin/Web.AcceptanceTests/debug/playwright.ps1" install chromium
+```
+
+Re-run this after any bump to the `Microsoft.Playwright` package version.
 
 ## Configuration Notes
 
